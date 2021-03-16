@@ -100,7 +100,11 @@
 #define FKEY_Ok           0x00005
 #define FKEY_Exit         0x00006
 
-#define KEY_Flag_Click    0x40000000
-#define KEY_Flag_Push     0x20000000
+#define Keyflag_ASCII     0x20000     //missing definition in key.h (but is not submitted to TAPs)
+#define Keyflag_Push	  0x01000000  //wrong definition in key.h
+#define Keyflag_Click	  0x02000000  //wrong definition in key.h
+
+//#define RKEY_White	  0x10049     //missing definition in key.h (-> defined in FirebirdLib)
+#define RKEY_Red          RKEY_NewF1  //ambiguous definition in key.h
 
 #endif

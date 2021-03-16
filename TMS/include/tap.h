@@ -361,13 +361,13 @@ typedef void* TYPE_WavHandle;
 #define MAX_PROGRAM_NAME    64
 #define MAX_AUTHOR_NAME     64
 #define MAX_DESCRIPTION     128
-#define MAX_PROGRAM_VERSION 64
+#define MAX_PROGRAM_VERSION 64 // 64 (Firebird)
 #define MAX_ETCINFO_STR     64
 
 #define TAP_PROGRAM_NAME(name) const char __tap_program_name__[MAX_PROGRAM_NAME] __attribute__ ((section("._tap_program_name"))) = (name)
 #define TAP_AUTHOR_NAME(name)  const char __tap_author_name__[MAX_AUTHOR_NAME]   __attribute__ ((section("._tap_author_name")))  = (name)
 #define TAP_DESCRIPTION(desc)  const char __tap_description__[MAX_DESCRIPTION]   __attribute__ ((section("._tap_description")))  = (desc)
-#define TAP_PROGRAM_VERSION(name) const char __tap_program_version__[MAX_PROGRAM_VERSION] __attribute__ ((section("._tap_program_version"))) = (name)  //-Firebird-
+#define TAP_PROGRAM_VERSION(name) const char __tap_program_version__[MAX_PROGRAM_VERSION] __attribute__ ((section("._tap_program_version"))) = (name)  // Firebird
 #define TAP_ETCINFO(etc)       const char __tap_etc_str__[MAX_ETCINFO_STR]       __attribute__ ((section("._tap_etcinfo")))      = (etc)
 #define TAP_ID(id)             const dword  __tap_ud__                           __attribute__ ((section("._tap_id")))           = (id)
 #define TAP_ATTRIBUTE(attr)    const dword __tap_attr__                          __attribute__((section("._tap_attribute")))     = (attr)
@@ -946,6 +946,7 @@ extern  int     (*TAP_Demux_GetData)(int demuxHandle, dword** data);
 // --- User Define Function --------------------------------------------
 extern  int     TAP_Main(void);
 extern  dword   TAP_EventHandler( word event, dword param1, dword param2 );
+extern unsigned char (*TAP_GetActiveTuner)(unsigned char);  // missing definition in tap.h
 
 
 #ifdef __cplusplus
