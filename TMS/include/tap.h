@@ -20,7 +20,7 @@ extern "C" {
 #define EVT_IDLE            0x000   // param1 = none, param2 = none
 #define EVT_KEY             0x100   // param1 = keyCode, param2 = none
 #define EVT_UART            0x200   // param1 = data
-#define EVT_RBACK           0x300   // param1 = mode( 0 = start, 1 = end ), 
+#define EVT_RBACK           0x300   // param1 = mode( 0 = start, 1 = end ),
 #define EVT_SVCSTATUS       0x400   // param1 = service status
 #define EVT_VIDEO_CONV      0x500
 #define EVT_DEMUX           0x800   // param1 = demux handle, param2 = result
@@ -123,7 +123,7 @@ typedef struct
 typedef enum
 {
     COMPRESS_None,
-    COMPRESS_Rle,       // Run Length 
+    COMPRESS_Rle,       // Run Length
     COMPRESS_Tfp        // Topfield pack
 } TYPE_GrData_CompressMethod;
 
@@ -226,7 +226,7 @@ typedef struct
     word    orgNetId;
     word    tsId;
     word    logicalChNum;
-   	dword   reserved[2];    
+   	dword   reserved[2];
 } TYPE_TapChInfo;
 
 typedef struct
@@ -281,8 +281,8 @@ typedef struct
 
 typedef enum
 {
-    RECTYPE_None,               // No Recording 
-    RECTYPE_Normal,             // Normal Recording 
+    RECTYPE_None,               // No Recording
+    RECTYPE_Normal,             // Normal Recording
     RECTYPE_Timeshift,          // Recording for Time shifting ( Cannot stop )
     RECTYPE_Copy                // Copy
 } TYPE_RecType;
@@ -290,7 +290,7 @@ typedef enum
 typedef enum
 {
     PLAYMODE_None,              // No playback started
-    PLAYMODE_Playing = 2,       // Normal Playback 
+    PLAYMODE_Playing = 2,       // Normal Playback
     PLAYMODE_TempPlaying,       // Time shifting
     PLAYMODE_RecPlaying,        // Time shifting in recording service.
     PLAYMODE_Mp3,               // MP3
@@ -325,12 +325,12 @@ typedef struct
 {
     byte    playMode;           // Playback Mode, refer TYPE_PlayMode
     byte    trickMode;          // Trick Mode, refer TYPE_TrickMode
-    byte    speed;              // playback speed 
+    byte    speed;              // playback speed
     byte    svcType;            // 0 = TV, 1 = Radio
     word    svcNum;
     word    duration;
     byte    durationSec;
-    byte    reserved;    
+    byte    reserved;
     dword   currentBlock;
     dword   totalBlock;
     TYPE_File *file;
@@ -344,10 +344,12 @@ typedef struct
 #define DEMUX_FILTER_TABLE      0
 #define DEMUX_FILTER_ONESHOT    1
 #define DEMUX_FILTER_REPEAT     0xFF
+#define DEMUX_FILTER_PES        0xF0
+
 typedef struct
 {
     word pid;
-    byte filterVal[8];          // filterVal[0,1,2,3...] => section[0,3,4,5...] 
+    byte filterVal[8];          // filterVal[0,1,2,3...] => section[0,3,4,5...]
     byte filterMask[8];
     byte nSec;                  // section count. 0:table loading, 0xff:repeat mode
     word timeOut;               // * 100ms
@@ -359,15 +361,15 @@ typedef void* TYPE_WavHandle;
 // ----------------------------------------------------------------------
 
 #define MAX_PROGRAM_NAME    64
+#define MAX_PROGRAM_VERSION 64
 #define MAX_AUTHOR_NAME     64
 #define MAX_DESCRIPTION     128
-#define MAX_PROGRAM_VERSION 64 // 64 (Firebird)
 #define MAX_ETCINFO_STR     64
 
 #define TAP_PROGRAM_NAME(name) const char __tap_program_name__[MAX_PROGRAM_NAME] __attribute__ ((section("._tap_program_name"))) = (name)
+#define TAP_PROGRAM_VERSION(name) const char __tap_program_version__[MAX_PROGRAM_VERSION] __attribute__ ((section("._tap_program_version"))) = (name)
 #define TAP_AUTHOR_NAME(name)  const char __tap_author_name__[MAX_AUTHOR_NAME]   __attribute__ ((section("._tap_author_name")))  = (name)
 #define TAP_DESCRIPTION(desc)  const char __tap_description__[MAX_DESCRIPTION]   __attribute__ ((section("._tap_description")))  = (desc)
-#define TAP_PROGRAM_VERSION(name) const char __tap_program_version__[MAX_PROGRAM_VERSION] __attribute__ ((section("._tap_program_version"))) = (name)  // Firebird
 #define TAP_ETCINFO(etc)       const char __tap_etc_str__[MAX_ETCINFO_STR]       __attribute__ ((section("._tap_etcinfo")))      = (etc)
 #define TAP_ID(id)             const dword  __tap_ud__                           __attribute__ ((section("._tap_id")))           = (id)
 #define TAP_ATTRIBUTE(attr)    const dword __tap_attr__                          __attribute__((section("._tap_attribute")))     = (attr)
@@ -388,13 +390,13 @@ typedef enum
 
 typedef enum
 {
-    SUBSTATE_MainMenu,
+    SUBSTATE_MainMenu,                  //0x00
     SUBSTATE_TimeMenu,
     SUBSTATE_TimeSettingMenu,
     SUBSTATE_InstallationMenu,
     SUBSTATE_SysRecoverMenu,
     SUBSTATE_FirmUpgradeMenu,
-    SUBSTATE_TransferMenu,	
+    SUBSTATE_TransferMenu,
     SUBSTATE_TimerMenu,
     SUBSTATE_LanguageMenu,
     SUBSTATE_RecordingSetMenu,
@@ -404,7 +406,7 @@ typedef enum
     SUBSTATE_ParentLockMenu,
     SUBSTATE_AvMenu,
     SUBSTATE_OtherSettingMenu,
-    SUBSTATE_EditServiceListMenu,
+    SUBSTATE_EditServiceListMenu,       //0x10
     SUBSTATE_EditFavoriteListMenu,
     SUBSTATE_SearchMenu,
     SUBSTATE_SearchModeMenu,
@@ -420,7 +422,7 @@ typedef enum
     SUBSTATE_SmatvSearch,
     SUBSTATE_FastScan,
     SUBSTATE_Normal,
-    SUBSTATE_ServiceList,
+    SUBSTATE_ServiceList,               //0x20
     SUBSTATE_Epg,
     SUBSTATE_Fav,
     SUBSTATE_Sat,
@@ -436,7 +438,7 @@ typedef enum
     SUBSTATE_AntenaSettingMenu,
     SUBSTATE_PositionSettingMenu,
     SUBSTATE_PvrList,
-    SUBSTATE_PvrRecord,
+    SUBSTATE_PvrRecord,                 //0x30
     SUBSTATE_PvrTimeSearch,
     SUBSTATE_PvrPlayingSearch,
     SUBSTATE_PvrRecSearch,
@@ -452,7 +454,7 @@ typedef enum
     SUBSTATE_ConaxSignPin,
     SUBSTATE_MatRating,
     SUBSTATE_CaInfo,
-    SUBSTATE_RateLock,
+    SUBSTATE_RateLock,                  //0x40
     SUBSTATE_TokenSts,
     SUBSTATE_DebitSts,
     SUBSTATE_CreditSts,
@@ -468,14 +470,14 @@ typedef enum
     SUBSTATE_ServiceCopyMenu,
     SUBSTATE_Multifeed,
     SUBSTATE_NVOD,
-    SUBSTATE_GetBer,
+    SUBSTATE_GetBer,                    //0x50
     SUBSTATE_SimpleLang,
     SUBSTATE_SSUMenu,
     SUBSTATE_CheckSSU,
     SUBSTATE_TimerModify,
     SUBSTATE_CanalEpgRetrieve,
     SUBSTATE_QuickRecWin,
-    SUBSTATE_PinCode,   
+    SUBSTATE_PinCode,
     SUBSTATE_EXTSignalBar,
     SUBSTATE_DelTimerEntry,
     SUBSTATE_SysMsg,
@@ -484,7 +486,7 @@ typedef enum
     SUBSTATE_ExtEvtInfo,
     SUBSTATE_SatTpEditMenu,
     SUBSTATE_SatelliteSettingMenu,
-    SUBSTATE_DCMSearch,
+    SUBSTATE_DCMSearch,                 //0x60
     SUBSTATE_RecordingMenu,
     SUBSTATE_EntertainmentMenu,
     SUBSTATE_FrontDisplaySettingMenu,
@@ -494,8 +496,18 @@ typedef enum
     SUBSTATE_Weather,
     SUBSTATE_Flickr,
     SUBSTATE_EpgSetting,
-
-	N_SUBSTATE
+    SUBSTATE_AnalogInput,
+    SUBSTATE_MailMsg,
+    SUBSTATE_ViewingInfo,
+    SUBSTATE_KTMenu,
+    SUBSTATE_DLNA_FM_Menu,
+    SUBSTATE_KTShareDevice_Menu,
+    SUBSTATE_KTMT_Menu,                 //0x70
+    SUBSTATE_KTLocalBrowser_Menu,
+    SUBSTATE_KT_LocalSearch_Menu,
+    SUBSTATE_KTShareBrowser_Menu,
+    SUBSTATE_CiPlus,
+    N_SUBSTATE
 } TYPE_SubState;
 
 
@@ -519,7 +531,7 @@ typedef enum
     SYSVAR_AudLan,
     SYSVAR_TvType,
     SYSVAR_HDOutputMode,
-    SYSVAR_HDVideoFormat,    
+    SYSVAR_HDVideoFormat,
     SYSVAR_ScartOut,
     SYSVAR_ScartType,
     SYSVAR_TvRatio,
@@ -533,7 +545,9 @@ typedef enum
     SYSVAR_Timeshift,
     SYSVAR_TimeshiftStorage,
     SYSVAR_OsdAnimation,
-    SYSVAR_OsdTextScroll
+    SYSVAR_OsdTextScroll,
+    SYSVAR_RecPaddingFore,
+    SYSVAR_RecPaddingRear
 } TAP_SysVarId;
 
 #define MAX_Vol         17
@@ -557,7 +571,6 @@ typedef enum
     LAN_Russian,
     LAN_Polish,
     LAN_Iran,
-
     N_OsdLan
 }   TYPE_Language;
 
@@ -663,13 +676,13 @@ typedef enum
     VIDEO_STANDARD_720P,
     VIDEO_STANDARD_576P480P,
     VIDEO_STANDARD_576I480I,
-    //pal	
+    //pal
     VIDEO_STANDARD_AUTO_PAL,
     VIDEO_STANDARD_1080I50,
     VIDEO_STANDARD_720P50,
     VIDEO_STANDARD_576P,
     VIDEO_STANDARD_Pal,//576I
-    //ntsc	
+    //ntsc
     VIDEO_STANDARD_AUTO_NTSC,
     VIDEO_STANDARD_1080I60,
     VIDEO_STANDARD_720P60,
@@ -695,6 +708,7 @@ extern  dword   (*TAP_GetVersion)(void);
 
 extern  void    (*TAP_SystemProc)(void);
 extern  dword   (*TAP_GetState)( dword *state, dword *subState );
+extern  byte    (*TAP_GetCamState)( void );
 extern  void    (*TAP_ExitNormal)( void );
 extern  void    (*TAP_EnterNormal)( void );
 extern  void    (*TAP_Exit)(void);
