@@ -26,7 +26,7 @@ RM      = rm -f
 SORT    = sort
 SED     = sed
 TOUCH   = touch
-AWK 	= awk
+AWK     = awk
 JB      = JailBreak.exe
 RMDIR   = rmdir
 
@@ -36,4 +36,3 @@ Q_ := @
 else
 Q_ :=
 endif
-
