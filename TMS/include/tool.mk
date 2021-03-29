@@ -8,8 +8,8 @@ CROSS_COMPILE ?= $(ARCH)-
 
 AS      = $(CROSS_COMPILE)as
 LD      = $(CROSS_COMPILE)ld
-CC      = $(CROSS_COMPILE)gcc -D_TMS_
-CXX     = $(CROSS_COMPILE)c++
+CC      = $(CROSS_COMPILE)gcc -mips32 -D_TMS_
+CXX     = $(CROSS_COMPILE)c++ -mips32 -D_TMS_
 AR      = $(CROSS_COMPILE)ar
 NM      = $(CROSS_COMPILE)nm
 STRIP   = $(CROSS_COMPILE)strip
